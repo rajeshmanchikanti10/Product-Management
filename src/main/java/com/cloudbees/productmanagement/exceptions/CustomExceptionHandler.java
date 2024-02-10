@@ -15,8 +15,4 @@ public class CustomExceptionHandler {
         ProductResponse bookResponse = ProductResponse.builder().success(false).data(ex.getMessage()).build();
         return ResponseEntity.status(ex.getHttpStatusCode()).body(bookResponse);
     }
-//    @ExceptionHandler(MethodArgumentNotValidException.class)
-//    public ResponseEntity<String> handleValidationExceptions(MethodArgumentNotValidException ex) {
-//        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getFieldError().getDefaultMessage());
-//    }
 }

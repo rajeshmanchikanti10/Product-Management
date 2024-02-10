@@ -41,8 +41,8 @@ public class ProductResource {
         return ResponseUtils.toProductResponse(productService.getAllProduct());
     }
     @PutMapping
-    public ProductResponse<ProductRequest> updateProduct(@RequestBody Product product){
-        return productService.updateProduct(product).map(ProductTransformer::toDAO).map(ResponseUtils::toProductResponse).orElseThrow(()->new ProductException(ErrorCode.UPDATION_ERROR,"Updation Exception"));
+    public ProductResponse<ProductRequest> updateProduct(@RequestBody ProductRequest productRequest){
+        return productService.updateProduct(productRequest).map(ProductTransformer::toDAO).map(ResponseUtils::toProductResponse).orElseThrow(()->new ProductException(ErrorCode.UPDATION_ERROR,"Updation Exception"));
     }
     @DeleteMapping("/{id}")
     public ResponseEntity deleteProduct(@PathVariable("id")String productId) {

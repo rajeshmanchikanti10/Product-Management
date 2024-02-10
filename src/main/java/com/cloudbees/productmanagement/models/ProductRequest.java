@@ -17,6 +17,7 @@ public class ProductRequest {
     private Float price;
     @NotNull
     private int quantity;
+    @NotNull
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private PriceModificationType modificationType;
     @JsonInclude(JsonInclude.Include.NON_NULL)
