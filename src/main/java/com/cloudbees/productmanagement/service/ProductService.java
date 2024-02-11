@@ -30,8 +30,6 @@ public class ProductService {
     }
 
     public Optional<Product> createProduct(ProductRequest productRequest){
-        if(productRequest.getPercentage()==null)
-                productRequest.setPercentage(0f);
         PriceAdjuster priceAdjuster = PriceAdjustFactory.getOperation(productRequest.getModificationType());
         productRequest.setPrice(priceAdjuster.apply(productRequest.getPrice(),productRequest.getPercentage()));
         Product product = ProductTransformer.toCreateReq(productRequest);
@@ -39,16 +37,15 @@ public class ProductService {
         productRepository.save(product);
         return Optional.of(product);
     }
-    //not allowed to apply discount and tax here
     public Optional<Product> updateProduct(ProductRequest productRequest) {
-        if(productRequest.getPercentage()==null)
-            productRequest.setPercentage(0f);
-        PriceAdjuster priceAdjuster = PriceAdjustFactory.getOperation(productRequest.getModificationType());
-        productRequest.setPrice(priceAdjuster.apply(productRequest.getPrice(),productRequest.getPercentage()));
         Optional<Product> dbProducts = productRepository.findByProductId(productRequest.getProductId());
         dbProducts.ifPresentOrElse(dbProduct -> {
-            dbProduct.setName(productRequest.getName());
+            //cacluate adjusted price
             dbProduct.setDescription(productRequest.getDescription());
+            PriceAdjuster priceAdjuster = PriceAdjustFactory.getOperation(productRequest.getModificationType());
+            productRequest.setPrice(priceAdjuster.apply(dbProduct.getPrice(),productRequest.getPercentage()));
+
+            dbProduct.setName(productRequest.getName());
             dbProduct.setPrice(productRequest.getPrice());
             dbProduct.setQuantity(productRequest.getQuantity());
         }, () -> {

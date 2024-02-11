@@ -18,12 +18,12 @@ public class Product {
     private long id;
     @Column(unique = true,nullable = false)
     String productId;
-    @Column
+    @Column(nullable = false)
     String name;
-    @Column
+    @Column(nullable = false)
     String description;
-    @Column
+    @Column(nullable = false)
     int quantity;
-    @Column
+    @Column(nullable = false)
     Float price;
 }
