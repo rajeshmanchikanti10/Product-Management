@@ -4,6 +4,7 @@ import com.cloudbees.productmanagement.response.ProductResponse;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -27,5 +28,10 @@ public class CustomExceptionHandler {
             errorMap.put(fieldError.getField(), fieldError.getDefaultMessage());
         });
         return ResponseEntity.status(ex.getStatusCode()).body(errorMap);
+    }
+    @ExceptionHandler({HttpMessageNotReadableException.class})
+    public ResponseEntity<ProductResponse> handleNotReadableException(HttpMessageNotReadableException ex){
+        ProductResponse bookResponse = ProductResponse.builder().success(false).data(ex.getMessage()).build();
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(bookResponse);
     }
 }

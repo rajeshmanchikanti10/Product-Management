@@ -39,7 +39,7 @@ public class ProductResource {
         return ResponseUtils.toProductResponse(productService.getAllProduct());
     }
     @PutMapping
-    public ProductResponse<ProductRequest> updateProduct( @RequestBody  ProductRequest productRequest){
+    public ProductResponse<ProductRequest> updateProduct( @RequestBody  @Valid  ProductRequest productRequest){
         return productService.updateProduct(productRequest).map(ProductTransformer::toDAO).map(ResponseUtils::toProductResponse).orElseThrow(()->new ProductException(ErrorCode.UPDATION_ERROR,"Updation Exception"));
     }
     @DeleteMapping("/{id}")

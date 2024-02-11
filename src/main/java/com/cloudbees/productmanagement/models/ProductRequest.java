@@ -2,13 +2,20 @@ package com.cloudbees.productmanagement.models;
 
 import com.cloudbees.productmanagement.enums.PriceModificationType;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
 @Builder
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class ProductRequest {
     private String productId;
     @NotNull(message = "name should not be null")
