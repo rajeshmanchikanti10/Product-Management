@@ -1,9 +1,9 @@
-Product Management:
+# Product Management
 
 
-  Backend server using spring boot
+ ## A simple product management system, writtern using spring boot. It has following functionalities
 
-  Provides CRUD apis for product management
+  CRUD apis for product management
 
   Supports application of DISCOUNT or TAX on each product during Creation and updation
   
